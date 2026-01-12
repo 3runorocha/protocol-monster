@@ -6,7 +6,7 @@
 // Filtra promoções válidas (últimas 24h)
 // ============================================
 
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cron = require('node-cron');
