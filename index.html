@@ -235,12 +235,12 @@
                     onClick={() => carregarPromocoes(produto.id)}
                     className="bg-[#262626] rounded-lg overflow-hidden hover:bg-[#2d2d2d] transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[#16a34a]/20 group"
                   >
-                    <div className="aspect-[2/3] md:aspect-[2/3] flex items-center justify-center p-2 md:p-4 bg-[#1a1a1a]">
-                      <img
-                        src={`https://protocol-monster.onrender.com${produto.imagem_url}`}
-                        alt={produto.nome}
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                      />
+                  <div className="flex items-center justify-center p-2 md:p-4 bg-[#1a1a1a] h-[200px] md:h-auto md:aspect-[2/3]">
+                    <img
+                      src={`https://protocol-monster.onrender.com${produto.imagem_url}`}
+                      alt={produto.nome}
+                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    />
                     </div>
                     <div className="p-2 md:p-3">
                       <div
