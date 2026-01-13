@@ -16,6 +16,9 @@ require('dotenv').config({ path: './.env' });
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Timestamp da última consulta
+let ultimaConsulta = null;
+
 // Middlewares
 app.use(cors());
 app.use(express.json());
@@ -212,6 +215,9 @@ async function consultarPromocoes() {
 
     console.log(`✅ Consulta finalizada! ${totalPromocoesEncontradas} promoções encontradas.`);
 
+    // Atualizar timestamp da última consulta
+    ultimaConsulta = new Date().toISOString();
+
       } catch (error) {
         console.error('❌ Erro na consulta de promoções:', error);
       }
@@ -287,7 +293,7 @@ app.get('/api/status', (req, res) => {
       status: 'online',
       totalPromocoes: row.total,
       precoAlvo: API_CONFIG.precoAlvo,
-      ultimaAtualizacao: new Date().toISOString()
+      ultimaAtualizacao: ultimaConsulta || new Date().toISOString()
     });
   });
 });
