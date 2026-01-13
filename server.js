@@ -232,6 +232,11 @@ consultarPromocoes();
 // ROTAS DA API
 // ============================================
 
+// Health check para manter o servidor acordado
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // GET /api/produtos - Lista todos os produtos com status de promoção
 app.get('/api/produtos', (req, res) => {
   db.all(`

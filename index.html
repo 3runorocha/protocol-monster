@@ -42,10 +42,16 @@
 
       const carregarProdutos = async () => {
         try {
-          const response = await fetch(`${API_URL}/produtos`);
-          const data = await response.json();
-          setProdutos(data);
-          setUltimaAtualizacao(new Date());
+          // Buscar produtos
+          const responseProdutos = await fetch(`${API_URL}/produtos`);
+          const dataProdutos = await responseProdutos.json();
+          setProdutos(dataProdutos);
+
+          // Buscar última atualização do backend
+          const responseStatus = await fetch(`${API_URL}/status`);
+          const dataStatus = await responseStatus.json();
+          setUltimaAtualizacao(new Date(dataStatus.ultimaAtualizacao));
+
           setLoading(false);
         } catch (error) {
           console.error('Erro ao carregar produtos:', error);
@@ -224,7 +230,7 @@
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
               {produtos.map((produto) => {
                 const temPromocao = produto.total_promocoes > 0;
-                
+
                 return (
                   <button
                     key={produto.id}
@@ -243,8 +249,8 @@
                       <div
                         className={`
                           px-4 py-2 rounded-lg font-semibold text-sm text-center transition-all duration-300
-                          ${temPromocao 
-                            ? 'bg-[#16a34a] text-white shadow-lg shadow-[#16a34a]/50' 
+                          ${temPromocao
+                            ? 'bg-[#16a34a] text-white shadow-lg shadow-[#16a34a]/50'
                             : 'bg-[#dc2626] text-white shadow-lg shadow-[#dc2626]/50'
                           }
                         `}
