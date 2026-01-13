@@ -226,11 +226,9 @@
                 )}
               </p>
             </div>
-
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
               {produtos.map((produto) => {
                 const temPromocao = produto.total_promocoes > 0;
-
                 return (
                   <button
                     key={produto.id}
@@ -244,7 +242,6 @@
                         className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
-
                     <div className="p-3">
                       <div
                         className={`
@@ -262,11 +259,25 @@
                 );
               })}
             </div>
+
+            {/* Rodapé */}
+            <div className="mt-12 pt-8 border-t border-[#404040] text-center">
+              <p className="text-sm text-[#a3a3a3]">
+                Desenvolvido por{' '}
+                <a
+                  href="https://www.linkedin.com/in/bruno-rocha-a65504327/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#16a34a] hover:text-[#15803d] transition-colors font-semibold"
+                >
+                  Bruno Rocha
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       );
     }
-
     ReactDOM.render(<App />, document.getElementById('root'));
   </script>
 </body>
