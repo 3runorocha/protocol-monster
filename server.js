@@ -67,22 +67,22 @@ db.serialize(() => {
 
   // Popular produtos iniciais (16 Monsters)
   const produtos = [
-    ["0070847022015", "Monster Energy", "/webp/tradicional.webp"], //ok
-    ["7898938890076", "Monster Energy Zero Sugar", "/webp/tradicional-zero.webp"], //ok
-    ["0070847033929", "Monster Ultra Violet", "/webp/ultra-violet.webp"], //ok
-    ["0070847022206", "Monster Ultra Zero", "/webp/ultra-zero.webp"], //ok
-    ["7898938890090", "Monster Ultra Peachy", "/webp/ultra-peachy.webp"], //ok
-    ["7898938890113", "Monster Ultra Fiesta", "/webp/ultra-fiesta.webp"], //ok
-    ["7898938890045", "Monster Pipeline Punch", "/webp/pipeline-punch.webp"], //ok
-    //["7898910847086", "Monster Ultra Paradise", "/webp/ultra-paradise.webp"], // <<<<<<<<<<<<<<<<
-    //["7898910847093", "Monster Dragon Ice Tea Peach", "/webp/dragon-tea-peach.webp"], // <<<<<<<<<<<<<<<<
-    ["0070847034803", "Monster Dragon Ice Tea Lemon", "/webp/dragon-tea-lemon.webp"], //ok
-    ["7898938890120", "Monster Rio Punch", "/webp/rio-punch.webp"], //ok
-    ["0070847022305", "Monster Absolutely Zero", "/webp/absolutely-zero.webp"], //ok
-    ["1220000250147", "Monster Khaotic", "/webp/kahotic.webp"], //ok
-    ["1220000250031", "Monster Pacific Punch", "/webp/pacific-punch.webp"], //ok
-    ["0070847033301", "Monster Mango Loco", "/webp/mango-loco.webp"], //ok
-    ["1220000250222", "Monster Watermelon", "/webp/watermelon.webp"] //ok
+    ["0070847022015", "Monster Energy", "/webp/tradicional.webp"],
+    ["7898938890076", "Monster Energy Zero", "/webp/tradicional-zero.webp"],
+    ["0070847022305", "Monster Absolutely Zero", "/webp/absolutely-zero.webp"],
+    ["0070847022206", "Monster Ultra Zero", "/webp/ultra-zero.webp"],
+    ["0070847033929", "Monster Ultra Violet", "/webp/ultra-violet.webp"],
+    ["7898938890090", "Monster Ultra Peachy", "/webp/ultra-peachy.webp"],
+    ["7898938890113", "Monster Ultra Fiesta", "/webp/ultra-fiesta.webp"],
+    ["1220000250222", "Monster Ultra Watermelon", "/webp/watermelon.webp"],
+    ["1220000250000", "Monster Ultra Paradise", "/webp/ultra-paradise.webp"],
+    ["1220000250147", "Monster Khaotic", "/webp/kahotic.webp"],
+    ["0070847033301", "Monster Mango Loco", "/webp/mango-loco.webp"],
+    ["7898938890045", "Monster Pipeline Punch", "/webp/pipeline-punch.webp"],
+    ["7898938890120", "Monster Rio Punch", "/webp/rio-punch.webp"],
+    ["1220000250031", "Monster Pacific Punch", "/webp/pacific-punch.webp"],
+    ["1220000250406", "Monster Dragon Ice Tea Peach", "/webp/dragon-tea-peach.webp"],
+    ["0070847034803", "Monster Dragon Ice Tea Lemon", "/webp/dragon-tea-lemon.webp"]
   ];
 
   const stmt = db.prepare('INSERT OR IGNORE INTO produtos (gtin, nome, imagem_url) VALUES (?, ?, ?)');
