@@ -132,6 +132,8 @@ async function consultarPromocoes() {
     // Consultar API para cada produto
     for (const produto of produtos) {
       try {
+        const gtinNormalizado = produto.gtin.replace(/^0+/, '');
+
         const response = await fetch('http://api.sefaz.al.gov.br/sfz-economiza-alagoas-api/api/public/produto/pesquisa', {
           method: 'POST',
           headers: {
@@ -140,7 +142,7 @@ async function consultarPromocoes() {
           },
           body: JSON.stringify({
             "produto": {
-              "gtin": produto.gtin
+              "gtin": gtinNormalizado
             },
             "estabelecimento": {
               "geolocalizacao": {
@@ -253,7 +255,7 @@ app.get('/api/produtos', (req, res) => {
     LEFT JOIN promocoes_ativas pr ON p.id = pr.produto_id
     WHERE p.ativo = 1
     GROUP BY p.id
-    ORDER BY p.id
+    ORDER BY total_promocoes DESC, p.id ASC
   `, (err, rows) => {
     if (err) {
       return res.status(500).json({ error: err.message });

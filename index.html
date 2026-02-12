@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Protocol Monster</title>
-  <meta name="description" content="Encontre promoções de Monster Energy em tempo real em Maceió. Atualizado automaticamente a cada 14 minutos.">
+  <meta name="description" content="Encontre promoções de Monster Energy em tempo real em Maceió. Atualizado automaticamente a cada 15 minutos.">
 
   <!-- Open Graph / WhatsApp / Telegram / Facebook -->
   <meta property="og:title" content="Protocol Monster">
-  <meta property="og:description" content="Encontre promoções de Monster Energy em tempo real em Maceió. Atualizado a cada 14 minutos.">
+  <meta property="og:description" content="Encontre promoções de Monster Energy em tempo real em Maceió. Atualizado automaticamente a cada 15 minutos.">
   <meta property="og:image" content="https://protocol-monster.onrender.com/webp/monster-logo.png">
   <meta property="og:url" content="https://protocol-monster.vercel.app">
   <meta property="og:type" content="website">
@@ -152,81 +152,92 @@
                 </div>
               </div>
 
-              {promocoes.length === 0 ? (
-                <div className="text-center py-12 text-[#a3a3a3]">
-                  <p>Nenhuma promoção ativa no momento</p>
-                </div>
-              ) : (
-                <div className="bg-[#262626] rounded-lg overflow-hidden">
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead className="bg-[#2d2d2d]">
-                        <tr>
-                          <th className="px-6 py-4 text-left text-sm font-semibold text-[#a3a3a3]">
-                            <div className="flex items-center gap-2">
-                              <Clock />
-                              Data/Hora
+                        {promocoes.length === 0 ? (
+            <div className="text-center py-12 text-[#a3a3a3]">
+              <p>Nenhuma promoção ativa no momento</p>
+            </div>
+          ) : (
+            <div className="bg-[#262626] rounded-lg overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-[#2d2d2d]">
+                    <tr>
+                      <th className="px-3 py-3 text-left text-xs font-semibold text-[#a3a3a3]">
+                        <div className="flex items-center gap-2">
+                          <Clock />
+                          Data/Hora
+                        </div>
+                      </th>
+                      <th className="px-3 py-3 text-left text-xs font-semibold text-[#a3a3a3]">
+                        <div className="flex items-center gap-2">
+                          <MapPin />
+                          Local
+                        </div>
+                      </th>
+                      <th className="px-3 py-3 text-left text-xs font-semibold text-[#a3a3a3]">
+                        <div className="flex items-center gap-2">
+                          <DollarSign />
+                          Preço
+                        </div>
+                      </th>
+                      <th className="px-3 py-3 text-center text-xs font-semibold text-[#a3a3a3]">
+                        Navegação
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#404040]">
+                    {promocoes.map((promo, index) => (
+                      <tr key={index} className="hover:bg-[#2d2d2d] transition-colors">
+                        <td className="px-3 py-3 text-xs">
+                          {formatarDataHora(promo.data_venda)}
+                        </td>
+                        <td className="px-3 py-3">
+                          <div className="text-xs">
+                            <div className="font-semibold mb-1">{promo.nome_estabelecimento}</div>
+                            <div className="text-[#a3a3a3]">
+                              {promo.endereco_completo}
                             </div>
-                          </th>
-                          <th className="px-6 py-4 text-left text-sm font-semibold text-[#a3a3a3]">
-                            <div className="flex items-center gap-2">
-                              <MapPin />
-                              Local
+                            <div className="text-[#a3a3a3]">
+                              {promo.municipio} - CEP: {promo.cep}
                             </div>
-                          </th>
-                          <th className="px-6 py-4 text-left text-sm font-semibold text-[#a3a3a3]">
-                            <div className="flex items-center gap-2">
-                              <DollarSign />
-                              Preço
-                            </div>
-                          </th>
-                          <th className="px-6 py-4 text-center text-sm font-semibold text-[#a3a3a3]">
-                            Localização
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-[#404040]">
-                        {promocoes.map((promo, index) => (
-                          <tr key={index} className="hover:bg-[#2d2d2d] transition-colors">
-                            <td className="px-6 py-4 text-sm">
-                              {formatarDataHora(promo.data_venda)}
-                            </td>
-                            <td className="px-6 py-4">
-                              <div className="text-sm">
-                                <div className="font-semibold mb-1">{promo.nome_estabelecimento}</div>
-                                <div className="text-[#a3a3a3] text-xs">
-                                  {promo.endereco_completo}
-                                </div>
-                                <div className="text-[#a3a3a3] text-xs">
-                                  {promo.municipio} - CEP: {promo.cep}
-                                </div>
-                              </div>
-                            </td>
-                            <td className="px-6 py-4">
-                              <span className="text-[#16a34a] font-bold text-lg">
-                                {formatarPreco(promo.preco_venda)}
-                              </span>
-                            </td>
-                            <td className="px-6 py-4 text-center">
-                              <button
-                                onClick={() => copiarCoordenadas(promo.latitude, promo.longitude)}
-                                className="inline-flex items-center gap-2 px-4 py-2 bg-[#16a34a] hover:bg-[#15803d] text-white rounded-lg transition-colors text-sm font-medium"
-                              >
-                                <MapPin />
-                                Copiar
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                          </div>
+                        </td>
+                        <td className="px-3 py-3">
+                          <span className="text-[#16a34a] font-bold text-sm">
+                            {formatarPreco(promo.preco_venda)}
+                          </span>
+                        </td>
+                        <td className="px-3 py-3">
+                          <div className="flex flex-col gap-2">
+
+                              href={`https://www.google.com/maps/search/?api=1&query=${promo.latitude},${promo.longitude}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center px-3 py-1.5 bg-[#4285f4] hover:bg-[#3367d6] text-white rounded-lg transition-colors text-xs font-medium"
+                            >
+                              Google Maps
+                            </a>
+
+                              href={`https://waze.com/ul?ll=${promo.latitude},${promo.longitude}&navigate=yes`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center px-3 py-1.5 bg-[#33ccff] hover:bg-[#00b8f0] text-white rounded-lg transition-colors text-xs font-medium"
+                            >
+                              Waze
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
                   </div>
                 </div>
-              )}
-            </div>
-          </div>
-        );
-      }
+              );
+            }
 
       return (
         <div className="min-h-screen bg-[#1a1a1a] text-white p-4 md:p-8">
