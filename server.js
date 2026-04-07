@@ -82,7 +82,9 @@ db.serialize(() => {
     ["7898938890120", "Monster Rio Punch", "/webp/rio-punch.webp"],
     ["1220000250031", "Monster Pacific Punch", "/webp/pacific-punch.webp"],
     ["1220000250406", "Monster Dragon Ice Tea Peach", "/webp/dragon-tea-peach.webp"],
-    ["0070847034803", "Monster Dragon Ice Tea Lemon", "/webp/dragon-tea-lemon.webp"]
+    ["0070847034803", "Monster Dragon Ice Tea Lemon", "/webp/dragon-tea-lemon.webp"],
+    ["7898770420042", "Monster Energy VR46", "/webp/monster-vr46.webp"],
+    ["7898770420011", "Monster Ultra Strawberry Dreams", "/webp/ultra-strawberry-dreams.webp"]
   ];
 
   const stmt = db.prepare('INSERT OR IGNORE INTO produtos (gtin, nome, imagem_url) VALUES (?, ?, ?)');
