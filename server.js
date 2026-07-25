@@ -100,9 +100,7 @@ const API_CONFIG = {
   baseURL: 'http://api.sefaz.al.gov.br/sfz-economiza-alagoas-api/api/public/produto/pesquisa',
   appToken: process.env.APP_TOKEN,
   precoAlvo: 9.00,
-  latitude: -9.659549,
-  longitude: -35.704811,
-  raio: 10
+  municipioIBGE: 2704302 // Maceió
 };
 
 // ============================================
@@ -147,10 +145,8 @@ async function consultarPromocoes() {
               "gtin": gtinNormalizado
             },
             "estabelecimento": {
-              "geolocalizacao": {
-                "latitude": -9.659549,
-                "longitude": -35.704811,
-                "raio": 10
+              "municipio": {
+                "codigoIBGE": 2704302
               }
             },
             "dias": 7,
@@ -180,6 +176,11 @@ async function consultarPromocoes() {
           if (dataVenda >= limite24h && precoVenda <= API_CONFIG.precoAlvo) {
             const endereco = `${item.estabelecimento.endereco.nomeLogradouro}, ${item.estabelecimento.endereco.numeroImovel} - ${item.estabelecimento.endereco.bairro}`;
 
+            // Lat/long vem em estabelecimento.{latitude,longitude} no payload da SEFAZ;
+            // fallback para endereco.{latitude,longitude} para não gravar null.
+            const latitude = item.estabelecimento.latitude ?? item.estabelecimento.endereco.latitude;
+            const longitude = item.estabelecimento.longitude ?? item.estabelecimento.endereco.longitude;
+
             await new Promise((resolve, reject) => {
               db.run(`
                 INSERT INTO promocoes_ativas (
@@ -196,8 +197,8 @@ async function consultarPromocoes() {
                 endereco,
                 item.estabelecimento.endereco.municipio,
                 item.estabelecimento.endereco.cep,
-                item.estabelecimento.endereco.latitude,
-                item.estabelecimento.endereco.longitude,
+                latitude,
+                longitude,
                 new Date().toISOString()
               ], (err) => {
                 if (err) reject(err);
@@ -308,7 +309,7 @@ app.get('/api/status', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando na porta ${PORT}`);
-  console.log(`📍 Município configurado: ${API_CONFIG.municipio}`);
+  console.log(`📍 Município configurado: Maceió (IBGE ${API_CONFIG.municipioIBGE})`);
   console.log(`💰 Preço-alvo: R$ ${API_CONFIG.precoAlvo.toFixed(2)}`);
   console.log(`⏰ Consultas automáticas a cada 14 minutos`);
 });
