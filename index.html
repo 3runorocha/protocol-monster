@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Protocol Monster</title>
-  <link rel="icon" type="image/webp" href="https://protocol-monster.onrender.com/webp/site-logo.png">
+  <link rel="icon" type="image/webp" href="/webp/site-logo.png">
   <meta name="description" content="Encontre promoções de Monster Energy em tempo real em Maceió. Atualizado automaticamente a cada 15 minutos.">
 
   <!-- Open Graph / WhatsApp / Telegram / Facebook -->
   <meta property="og:title" content="Protocol Monster">
   <meta property="og:description" content="Encontre promoções de Monster Energy em tempo real em Maceió. Atualizado automaticamente a cada 15 minutos.">
-  <meta property="og:image" content="https://protocol-monster.onrender.com/webp/monster-logo.png">
-  <meta property="og:url" content="https://protocol-monster.vercel.app">
+  <meta property="og:image" content="http://137.131.237.123:3001/webp/monster-logo.png">
+  <meta property="og:url" content="http://137.131.237.123:3001">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Protocol Monster">
 
@@ -19,7 +19,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Protocol Monster">
   <meta name="twitter:description" content="Encontre promoções de Monster Energy em tempo real em Maceió">
-  <meta name="twitter:image" content="https://protocol-monster.onrender.com/webp/monster-logo.png">
+  <meta name="twitter:image" content="http://137.131.237.123:3001/webp/monster-logo.png">
 
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -32,8 +32,8 @@
   <script type="text/babel">
     const { useState, useEffect } = React;
 
-    // CONFIGURAÇÃO: Altere para a URL do seu backend
-    const API_URL = 'https://protocol-monster.onrender.com/api';
+    // CONFIGURAÇÃO: caminho relativo — front e API servidos pelo mesmo Express
+    const API_URL = '/api';
 
     // Ícones (versão simplificada)
     const ArrowLeft = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>;
@@ -139,7 +139,7 @@
 
               <div className="flex items-center gap-6 mb-8">
                 <img
-                  src={`https://protocol-monster.onrender.com${produtoSelecionado.imagem_url}`}
+                  src={produtoSelecionado.imagem_url}
                   alt={produtoSelecionado.nome}
                   className="w-32 h-48 object-contain"
                 />
@@ -244,7 +244,7 @@
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-3 mb-2">
                 <img 
-                  src="https://protocol-monster.onrender.com/webp/site-logo.png" 
+                  src="/webp/site-logo.png"
                   alt="Monster Logo" 
                   className="h-12 md:h-16"
                 />
@@ -270,7 +270,7 @@
                   >
                     <div className="flex items-center justify-center p-2 md:p-4 bg-[#1a1a1a] h-[200px] md:h-auto md:aspect-[2/3]">
                       <img
-                        src={`https://protocol-monster.onrender.com${produto.imagem_url}`}
+                        src={produto.imagem_url}
                         alt={produto.nome}
                         className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                       />

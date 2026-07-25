@@ -24,6 +24,12 @@ app.use(cors());
 app.use(express.json());
 app.use('/webp', express.static('webp'));
 
+// Servir o front (index.html) na raiz. Rota explícita em vez de
+// express.static('.') para não expor .env, o .db nem o próprio server.js.
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+
 // ============================================
 // CONFIGURAÇÃO DO BANCO DE DADOS
 // ============================================
