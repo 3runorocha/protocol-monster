@@ -138,8 +138,8 @@ async function consultarPromocoes() {
     // Consultar API para cada produto
     for (const produto of produtos) {
       try {
-        const gtinNormalizado = produto.gtin.replace(/^0+/, '');
-
+        // GTIN enviado como está (13 dígitos). Não remover zeros à esquerda:
+        // "0070847022015" (13, válido) viraria "70847022015" (11) e a SEFAZ rejeita.
         const response = await fetch('http://api.sefaz.al.gov.br/sfz-economiza-alagoas-api/api/public/produto/pesquisa', {
           method: 'POST',
           headers: {
@@ -148,7 +148,7 @@ async function consultarPromocoes() {
           },
           body: JSON.stringify({
             "produto": {
-              "gtin": gtinNormalizado
+              "gtin": produto.gtin
             },
             "estabelecimento": {
               "municipio": {
@@ -182,10 +182,10 @@ async function consultarPromocoes() {
           if (dataVenda >= limite24h && precoVenda <= API_CONFIG.precoAlvo) {
             const endereco = `${item.estabelecimento.endereco.nomeLogradouro}, ${item.estabelecimento.endereco.numeroImovel} - ${item.estabelecimento.endereco.bairro}`;
 
-            // Lat/long vem em estabelecimento.{latitude,longitude} no payload da SEFAZ;
-            // fallback para endereco.{latitude,longitude} para não gravar null.
-            const latitude = item.estabelecimento.latitude ?? item.estabelecimento.endereco.latitude;
-            const longitude = item.estabelecimento.longitude ?? item.estabelecimento.endereco.longitude;
+            // Lat/long ficam em estabelecimento.endereco (verificado no payload real).
+            // Podem vir 0 quando o estabelecimento não registrou coordenadas na SEFAZ.
+            const latitude = item.estabelecimento.endereco.latitude;
+            const longitude = item.estabelecimento.endereco.longitude;
 
             await new Promise((resolve, reject) => {
               db.run(`
