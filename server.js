@@ -265,7 +265,7 @@ app.get('/api/produtos', (req, res) => {
     LEFT JOIN promocoes_ativas pr ON p.id = pr.produto_id
     WHERE p.ativo = 1
     GROUP BY p.id
-    ORDER BY total_promocoes DESC, p.id ASC
+    ORDER BY (COUNT(pr.id) > 0) DESC, p.id ASC
   `, (err, rows) => {
     if (err) {
       return res.status(500).json({ error: err.message });
