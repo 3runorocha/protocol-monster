@@ -257,9 +257,10 @@ app.get('/health', (req, res) => {
 // GET /api/produtos - Lista todos os produtos com status de promoção
 app.get('/api/produtos', (req, res) => {
   db.all(`
-    SELECT 
+    SELECT
       p.*,
-      COUNT(pr.id) as total_promocoes
+      COUNT(pr.id) as total_promocoes,
+      MIN(pr.preco_venda) as menor_preco
     FROM produtos p
     LEFT JOIN promocoes_ativas pr ON p.id = pr.produto_id
     WHERE p.ativo = 1

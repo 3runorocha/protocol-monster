@@ -59,6 +59,16 @@
         return () => clearInterval(interval);
       }, []);
 
+      // Voltar do navegador na tela de detalhe volta pra grid (não sai do site)
+      useEffect(() => {
+        const onPopState = () => {
+          setProdutoSelecionado(null);
+          setPromocoes([]);
+        };
+        window.addEventListener('popstate', onPopState);
+        return () => window.removeEventListener('popstate', onPopState);
+      }, []);
+
       const carregarProdutos = async () => {
         try {
           const responseProdutos = await fetch(`${API_URL}/produtos`);
@@ -83,14 +93,16 @@
           setPromocoes(data);
           const produto = produtos.find(p => p.id === produtoId);
           setProdutoSelecionado(produto);
+          // Entrada no histórico para o botão "voltar" do navegador voltar pra grid
+          window.history.pushState({ produtoId }, '');
         } catch (error) {
           console.error('Erro ao carregar promoções:', error);
         }
       };
 
       const voltarParaGrid = () => {
-        setProdutoSelecionado(null);
-        setPromocoes([]);
+        // Aciona o popstate, que limpa a seleção e mantém o histórico consistente
+        window.history.back();
       };
 
       const formatarDataHora = (isoString) => {
@@ -287,7 +299,12 @@
                           }
                         `}
                       >
-                        {temPromocao ? 'PROMOÇÃO ATIVA' : 'SEM PROMOÇÃO'}
+                        {temPromocao ? (
+                          <div className="flex flex-col items-center leading-tight">
+                            <span className="text-[10px] md:text-xs opacity-90">A partir de</span>
+                            <span className="text-base md:text-lg font-bold">{formatarPreco(produto.menor_preco)}</span>
+                          </div>
+                        ) : 'SEM PROMOÇÃO'}
                       </div>
                     </div>
                   </button>
